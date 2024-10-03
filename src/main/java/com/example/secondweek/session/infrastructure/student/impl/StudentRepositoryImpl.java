@@ -3,7 +3,7 @@ package com.example.secondweek.session.infrastructure.student.impl;
 
 import com.example.secondweek.session.domain.student.StudentRepository;
 import com.example.secondweek.session.domain.student.record.request.StudentRegisterDomainRequest;
-import com.example.secondweek.session.infrastructure.record.StudentRegisterInfraRequest;
+import com.example.secondweek.session.infrastructure.student.record.request.StudentRegisterInfraRequest;
 import com.example.secondweek.session.infrastructure.student.entity.StudentInfoEntity;
 import com.example.secondweek.session.infrastructure.student.jparepository.StudentInfoJpaRepository;
 import lombok.RequiredArgsConstructor;

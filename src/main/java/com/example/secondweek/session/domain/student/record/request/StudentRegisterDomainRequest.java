@@ -1,11 +1,6 @@
 package com.example.secondweek.session.domain.student.record.request;
 
-import com.example.secondweek.session.infrastructure.record.StudentRegisterInfraRequest;
-import com.example.secondweek.session.interfaces.record.student.request.StudentRegisterInterfaceRequest;
-
-
-
-
+import com.example.secondweek.session.infrastructure.student.record.request.StudentRegisterInfraRequest;
 
 
 public record StudentRegisterDomainRequest(

@@ -1,4 +1,4 @@
-package com.example.secondweek.session.infrastructure.record;
+package com.example.secondweek.session.infrastructure.student.record.request;
 
 
 import com.example.secondweek.session.infrastructure.student.entity.StudentInfoEntity;
