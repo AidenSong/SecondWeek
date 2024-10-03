@@ -3,16 +3,19 @@ package com.example.secondweek.session.infrastructure.session.impl;
 
 import com.example.secondweek.session.domain.session.SessionRepository;
 import com.example.secondweek.session.infrastructure.session.entitiy.SessionInfoEntity;
+import com.example.secondweek.session.infrastructure.session.entitiy.SessionStudentInfoEntity;
+import com.example.secondweek.session.infrastructure.session.entitiy.StudentInfoEntity;
 import com.example.secondweek.session.infrastructure.session.jparepository.SessionInfoJpaRepository;
 import com.example.secondweek.session.infrastructure.session.jparepository.SessionStudentInfoJpaRepository;
 import com.example.secondweek.session.infrastructure.session.jparepository.StudentInfoJpaRepository;
 import com.example.secondweek.session.infrastructure.session.record.request.SessionInfoRegisterInfraRequest;
+import com.example.secondweek.session.infrastructure.session.record.request.SessionRegisterInfraRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,15 +44,7 @@ public class SessionRepositoryImpl implements SessionRepository {
     @Override
     public boolean sessionInfoRegister(SessionInfoRegisterInfraRequest request) {
         try {
-            SessionInfoRegisterInfraRequest result = new SessionInfoRegisterInfraRequest(
-                request.id(),
-                request.name(),
-                request.professorName(),
-                request.capacity(),
-                request.date()
-            );
-
-            sessionInfoJpaRepository.save(result.toEntity());
+            sessionInfoJpaRepository.save(request.toEntity());
             return true;
 
         } catch (Exception e) {
@@ -58,5 +53,28 @@ public class SessionRepositoryImpl implements SessionRepository {
             log.error("+++++++++++");
             return false;
         }
+    }
+
+    @Override
+    public boolean sessionRegister(SessionRegisterInfraRequest request) {
+
+        SessionStudentInfoEntity entity = new SessionStudentInfoEntity();
+
+        Optional<SessionInfoEntity> sessionInfo = sessionInfoJpaRepository.findById(request.sessionId());
+        Optional<StudentInfoEntity> studentInfo = studentInfoJpaRepository.findById(request.studentId());
+
+        if (sessionInfo.isPresent() && studentInfo.isPresent()) {
+            entity.setSessionId(sessionInfo.get().getId());
+            entity.setSessionName(sessionInfo.get().getName());
+            entity.setProfessorName(sessionInfo.get().getProfessorName());
+            entity.setCapacity(sessionInfo.get().getCapacity());
+            entity.setDate(sessionInfo.get().getDate());
+            entity.setStudentId(studentInfo.get().getId());
+            entity.setStudentName(studentInfo.get().getName());
+
+            sessionStudentInfoJpaRepository.save(entity);
+            return true;
+        }
+        return false;
     }
 }

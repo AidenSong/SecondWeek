@@ -15,7 +15,7 @@ public record SessionInfoRegisterDomainRequest(SessionInfoRegisterInterfacesRequ
 
 
 
-    public SessionInfoRegisterInfraRequest toSessionInfoRegisterInfraFrame() {
+    public SessionInfoRegisterInfraRequest toInfraFrame() {
         SessionInfoRegisterInfraRequest infraFrame = new SessionInfoRegisterInfraRequest(
             request.id(),
             request.name(),
