@@ -5,9 +5,8 @@ import com.example.secondweek.session.domain.session.SessionService;
 import com.example.secondweek.session.infrastructure.session.entitiy.SessionInfoEntity;
 import com.example.secondweek.session.interfaces.record.request.SessionInfoRegisterInterfacesRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class SessionController {
 
 
@@ -35,9 +35,9 @@ public class SessionController {
         return response;
     }
 
-    @GetMapping("/sessionInfoRegister")
-    public String sessionInfoRegister(@RequestBody List<SessionInfoRegisterInterfacesRequest> requestList) {
-        if (sessionService.sessionInfoRegister(requestList)) {
+    @PostMapping("/sessionInfoRegister")
+    public String sessionInfoRegister(@RequestBody SessionInfoRegisterInterfacesRequest request) {
+        if (sessionService.sessionInfoRegister(request)) {
             return SUCCESS;
         }
         return FAIL;

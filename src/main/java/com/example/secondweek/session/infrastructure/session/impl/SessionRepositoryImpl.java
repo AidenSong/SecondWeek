@@ -27,31 +27,33 @@ public class SessionRepositoryImpl implements SessionRepository {
 
     @Override
     public List<SessionInfoEntity> sessionList() {
-        return sessionInfoJpaRepository.findAll();
+
+        try {
+            return sessionInfoJpaRepository.findAll();
+        } catch (Exception e) {
+            log.error("+++++++++++ SessionInfoRegister Fail");
+            log.error(e.getMessage());
+            log.error("+++++++++++");
+        }
+        return null;
     }
 
     @Override
-    public boolean sessionInfoRegister(List<SessionInfoRegisterInfraRequest> requestList) {
-        List<SessionInfoRegisterInfraRequest> list = new ArrayList<>();
+    public boolean sessionInfoRegister(SessionInfoRegisterInfraRequest request) {
         try {
-            for (SessionInfoRegisterInfraRequest request : requestList) {
-                SessionInfoRegisterInfraRequest result = new SessionInfoRegisterInfraRequest(
-                    request.id(),
-                    request.name(),
-                    request.professorName(),
-                    request.capacity(),
-                    request.date()
-                );
-                list.add(result);
-            }
+            SessionInfoRegisterInfraRequest result = new SessionInfoRegisterInfraRequest(
+                request.id(),
+                request.name(),
+                request.professorName(),
+                request.capacity(),
+                request.date()
+            );
 
-            for (SessionInfoRegisterInfraRequest session : list) {
-                sessionInfoJpaRepository.save(session.toEntity());
-            }
+            sessionInfoJpaRepository.save(result.toEntity());
             return true;
 
         } catch (Exception e) {
-            log.error("+++++++++++");
+            log.error("+++++++++++ SessionInfoRegister Fail");
             log.error(e.getMessage());
             log.error("+++++++++++");
             return false;

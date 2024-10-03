@@ -23,9 +23,9 @@ public class SessionService {
         return sessionRepository.sessionList();
     }
 
-    public boolean sessionInfoRegister(List<SessionInfoRegisterInterfacesRequest> requestList) {
+    public boolean sessionInfoRegister(SessionInfoRegisterInterfacesRequest request) {
 
-        List<SessionInfoRegisterInfraRequest> infraFrame = new SessionInfoRegisterDomainRequest(requestList).toSessionInfoRegisterInfraFrame();
+        SessionInfoRegisterInfraRequest infraFrame = new SessionInfoRegisterDomainRequest(request).toSessionInfoRegisterInfraFrame();
         return sessionRepository.sessionInfoRegister(infraFrame);
     }
 }

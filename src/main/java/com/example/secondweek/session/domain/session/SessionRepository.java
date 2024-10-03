@@ -10,5 +10,5 @@ public interface SessionRepository {
 
     List<SessionInfoEntity> sessionList();
 
-    boolean sessionInfoRegister(List<SessionInfoRegisterInfraRequest> requestList);
+    boolean sessionInfoRegister(SessionInfoRegisterInfraRequest request);
 }

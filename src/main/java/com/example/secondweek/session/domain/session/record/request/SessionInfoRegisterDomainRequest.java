@@ -11,22 +11,18 @@ import java.util.List;
 
 
 
-public record SessionInfoRegisterDomainRequest(List<SessionInfoRegisterInterfacesRequest> requestList) {
+public record SessionInfoRegisterDomainRequest(SessionInfoRegisterInterfacesRequest request) {
 
 
 
-    public List<SessionInfoRegisterInfraRequest> toSessionInfoRegisterInfraFrame() {
-        List<SessionInfoRegisterInfraRequest> list = new ArrayList<>();
-        for (SessionInfoRegisterInterfacesRequest request: requestList) {
-            SessionInfoRegisterInfraRequest infraFrame = new SessionInfoRegisterInfraRequest(
-                request.id(),
-                request.name(),
-                request.professorName(),
-                request.capacity(),
-                request.date()
-            );
-            list.add(infraFrame);
-        }
-        return list;
+    public SessionInfoRegisterInfraRequest toSessionInfoRegisterInfraFrame() {
+        SessionInfoRegisterInfraRequest infraFrame = new SessionInfoRegisterInfraRequest(
+            request.id(),
+            request.name(),
+            request.professorName(),
+            request.capacity(),
+            request.date()
+        );
+        return infraFrame;
     }
 }
