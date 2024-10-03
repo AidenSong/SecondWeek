@@ -23,6 +23,4 @@ public class SessionStudentInfoEntity {
     private LocalDate date;
     private Long studentId;
     private String studentName;
-
-
 }

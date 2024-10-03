@@ -1,17 +1,19 @@
 package com.example.secondweek.session.infrastructure.session.impl;
 
 
+import com.example.secondweek.session.common.CommonVariable;
 import com.example.secondweek.session.domain.session.SessionRepository;
 import com.example.secondweek.session.infrastructure.session.entitiy.SessionInfoEntity;
 import com.example.secondweek.session.infrastructure.session.entitiy.SessionStudentInfoEntity;
-import com.example.secondweek.session.infrastructure.session.entitiy.StudentInfoEntity;
+import com.example.secondweek.session.infrastructure.student.entity.StudentInfoEntity;
 import com.example.secondweek.session.infrastructure.session.jparepository.SessionInfoJpaRepository;
 import com.example.secondweek.session.infrastructure.session.jparepository.SessionStudentInfoJpaRepository;
-import com.example.secondweek.session.infrastructure.session.jparepository.StudentInfoJpaRepository;
+import com.example.secondweek.session.infrastructure.student.jparepository.StudentInfoJpaRepository;
 import com.example.secondweek.session.infrastructure.session.record.request.SessionInfoRegisterInfraRequest;
 import com.example.secondweek.session.infrastructure.session.record.request.SessionRegisterInfraRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,6 +46,13 @@ public class SessionRepositoryImpl implements SessionRepository {
     @Override
     public boolean sessionInfoRegister(SessionInfoRegisterInfraRequest request) {
         try {
+            if (sessionStudentInfoJpaRepository.findAll().size() == CommonVariable.MAX_CAPACITY) {
+                throw new IllegalArgumentException("정원(30명) 초과.");
+            }
+            if (sessionStudentInfoJpaRepository.existsById(request.id())) {
+                throw new DuplicateKeyException("해당 수업에 학생이 이미 존재 합니다.");
+            }
+
             sessionInfoJpaRepository.save(request.toEntity());
             return true;
 
@@ -77,4 +86,11 @@ public class SessionRepositoryImpl implements SessionRepository {
         }
         return false;
     }
+
+    @Override
+    public List<SessionStudentInfoEntity> findByStudentId(Long studentId) {
+        return sessionStudentInfoJpaRepository.findByStudentId(studentId);
+    }
+
+
 }

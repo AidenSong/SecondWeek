@@ -1,20 +1,23 @@
-package com.example.secondweek.session.interfaces;
+package com.example.secondweek.session.interfaces.controller;
 
 
 import com.example.secondweek.session.domain.session.SessionService;
 import com.example.secondweek.session.infrastructure.session.entitiy.SessionInfoEntity;
-import com.example.secondweek.session.interfaces.record.request.SessionInfoRegisterInterfacesRequest;
-import com.example.secondweek.session.interfaces.record.request.SessionRegisterInterfacesRequest;
+import com.example.secondweek.session.infrastructure.session.entitiy.SessionStudentInfoEntity;
+import com.example.secondweek.session.interfaces.record.session.request.SessionInfoRegisterInterfacesRequest;
+import com.example.secondweek.session.interfaces.record.session.request.SessionRegisterInterfacesRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+import static com.example.secondweek.session.common.CommonVariable.FAIL;
+import static com.example.secondweek.session.common.CommonVariable.SUCCESS;
 
 
 @RestController
+@RequestMapping("/session")
 @RequiredArgsConstructor
 @Slf4j
 public class SessionController {
@@ -22,8 +25,6 @@ public class SessionController {
 
     private final SessionService sessionService;
 
-    final String SUCCESS = "SUCCESS";
-    final String FAIL = "FAIL";
 
     // Session 조회
     @GetMapping("/sessionList")
@@ -52,10 +53,12 @@ public class SessionController {
         return FAIL;
     }
 
-
-
-
-
-
-
+    @GetMapping("findByStudentId")
+    public List<SessionStudentInfoEntity> findSessionByStudentId(@RequestParam Long studentId){
+        List<SessionStudentInfoEntity> response = sessionService.findByStudentId(studentId);
+        if (response.isEmpty()) {
+            return null;
+        }
+        return response;
+    }
 }

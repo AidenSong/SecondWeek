@@ -2,7 +2,7 @@ package com.example.secondweek.session.domain.session.record.request;
 
 
 import com.example.secondweek.session.infrastructure.session.record.request.SessionRegisterInfraRequest;
-import com.example.secondweek.session.interfaces.record.request.SessionRegisterInterfacesRequest;
+import com.example.secondweek.session.interfaces.record.session.request.SessionRegisterInterfacesRequest;
 
 
 
