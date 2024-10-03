@@ -19,20 +19,13 @@ public class SessionService {
     private final SessionRepository sessionRepository;
 
 
-    final String SUCCESS = "SUCCESS";
-    final String FAIL = "FAIL";
-
-
     public List<SessionInfoEntity> sessionList() {
         return sessionRepository.sessionList();
     }
 
-    public String sessionInfoRegister(List<SessionInfoRegisterInterfacesRequest> requestList) {
+    public boolean sessionInfoRegister(List<SessionInfoRegisterInterfacesRequest> requestList) {
 
         List<SessionInfoRegisterInfraRequest> infraFrame = new SessionInfoRegisterDomainRequest(requestList).toSessionInfoRegisterInfraFrame();
-        if (sessionRepository.sessionInfoRegister(infraFrame)) {
-            return SUCCESS;
-        }
-        return FAIL;
+        return sessionRepository.sessionInfoRegister(infraFrame);
     }
 }

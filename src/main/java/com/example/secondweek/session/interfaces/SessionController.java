@@ -21,7 +21,8 @@ public class SessionController {
 
     private final SessionService sessionService;
 
-
+    final String SUCCESS = "SUCCESS";
+    final String FAIL = "FAIL";
 
     // Session 조회
     @GetMapping("/sessionList")
@@ -36,9 +37,10 @@ public class SessionController {
 
     @GetMapping("/sessionInfoRegister")
     public String sessionInfoRegister(@RequestBody List<SessionInfoRegisterInterfacesRequest> requestList) {
-        sessionService.sessionInfoRegister(requestList);
-
-        return "";
+        if (sessionService.sessionInfoRegister(requestList)) {
+            return SUCCESS;
+        }
+        return FAIL;
     }
 
 
