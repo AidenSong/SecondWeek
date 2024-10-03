@@ -1,13 +1,15 @@
-package com.example.secondweek.specialsession.infrastructure.session.entitiy;
+package com.example.secondweek.session.infrastructure.session.entitiy;
 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Setter
 @Table(name = "SESSION_INFO")
 public class SessionInfoEntity {
     @Id

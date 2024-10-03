@@ -1,4 +1,4 @@
-package com.example.secondweek.specialsession.infrastructure.session.entitiy;
+package com.example.secondweek.session.infrastructure.session.entitiy;
 
 
 import jakarta.persistence.Entity;
